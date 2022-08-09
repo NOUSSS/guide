@@ -97,7 +97,7 @@ const filter = (reaction, user) => {
 	return reaction.emoji.name === '👍' && user.id === message.author.id;
 };
 
-const collector = message.createReactionCollector({ filter, time: 15000 });
+const collector = message.createReactionCollector({ filter: filter, time: 15000 });
 
 collector.on('collect', (reaction, user) => {
 	console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
@@ -117,7 +117,7 @@ const filter = (reaction, user) => {
 	return reaction.emoji.name === '👍' && user.id === message.author.id;
 };
 
-message.awaitReactions({ filter, max: 4, time: 60000, errors: ['time'] })
+message.awaitReactions({ filter: filter, max: 4, time: 60000, errors: ['time'] })
 	.then(collected => console.log(collected.size))
 	.catch(collected => {
 		console.log(`After a minute, only ${collected.size} out of 4 reacted.`);
@@ -166,7 +166,7 @@ const filter = i => {
 	return i.user.id === interaction.user.id;
 };
 
-message.awaitMessageComponent({ filter, componentType: ComponentType.SelectMenu, time: 60000 })
+message.awaitMessageComponent({ filter: filter, componentType: ComponentType.SelectMenu, time: 60000 })
 	.then(interaction => interaction.editReply(`You selected ${interaction.values.join(', ')}!`))
 	.catch(err => console.log(`No interactions were collected.`));
 ```
